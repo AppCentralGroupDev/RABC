@@ -1,0 +1,7 @@
+docker-compose --env-file=default.env up -d --build 
+docker-compose exec db psql --username=postgres --dbname=postgres
+docker-compose exec web python manage.py makemigrations
+docker-compose exec web python manage.py migrate --noinput       
+docker-compose exec web python manage.py createsuperuser
+docker-compose exec web python manage.py shell 
+exec(open('createadmin.py').read())
