@@ -30,11 +30,11 @@ urlpatterns = [
     path('add-model/', views.add_model, name="add_model"),
     path('approve-user-account/<int:user_id>/', views.approve_user_account, name="approve_user_account"),
     path('customer/', views.customer_page, name="customer"),
-    path('page1/', views.page1, name="page1"),
-    path('page2/', views.page2, name="page2"),
+    # path('page1/', views.page1, name="page1"),
+    # path('page2/', views.page2, name="page2"),
     path('pages/<str:page_name>', views.pages, name="pages"),
-    path('manager/', views.manager_page, name="manager"),
-    path('admin-page/', views.admin_page, name="admin_page"),
+    # path('manager/', views.manager_page, name="manager"),
+    # path('admin-page/', views.admin_page, name="admin_page"),
     path('accounts/', include('accounts.urls')),
 ]
 

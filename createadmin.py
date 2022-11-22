@@ -1,6 +1,9 @@
 from django.contrib.auth.models import Group, Permission , User
 import sys
 
+#create admin
+# User.objects.create_superuser('admin', 'admin@example.com', 'pass')
+
 # creates admin group
 g1 = Group.objects.create(name='admin')
 g1.save()

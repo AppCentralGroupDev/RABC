@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,7 +23,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://cbn-assets-ui.s3.amazonaws.com/assets/css/theme.css"
+      href="{% static '/assets/css/theme.css' %}"
       rel="stylesheet"
       type="text/css"
       media="all"
@@ -39,7 +40,7 @@
               <div class="mb-3">
                 <img
                   alt="logo"
-                  src="https://cbn-assets-ui.s3.amazonaws.com/assets/img/logo.svg"
+                  src="{% static '/assets/img/logo.svg' %}"
                 />
               </div>
               <h1 class="h3">Admin login</h1>
@@ -116,7 +117,7 @@
     <!-- Shopify Draggable - drag, drop and sort items on page -->
     <script
       type="text/javascript"
-      src="https://cbn-assets-ui.s3.amazonaws.com/assets/js/draggable.bundle.legacy.js"
+      src="{% static '/assets/js/draggable.bundle.legacy.js' %}"
     ></script>
     <script
       type="text/javascript"

@@ -16,7 +16,7 @@ def home(request):
 	}
 	return render(request, "index.html", context)
 
-# @unauthenticated_user
+
 @allowed_users(allowed_roles=["customer"])
 def customer_page(request):
     
@@ -25,7 +25,7 @@ def customer_page(request):
 	}
 	return render(request, "customer_page.html", context)
 
-# @allowed_users(allowed_roles=["pages"])
+
 login_required(login_url="login")
 def pages(request , page_name):
     current_user = request.user 
@@ -78,38 +78,38 @@ def pages(request , page_name):
 # 	}
 # 	return render(request, "customer_page.html" , {"firstname": "kilo",})
 
-@allowed_users(allowed_roles=["page1"])
-def page1(request):
-	context = {
-		"message": "You can only view page1"
-	}
-	return render(request, "page1.html", context)
+# @allowed_users(allowed_roles=["page1"])
+# def page1(request):
+# 	context = {
+# 		"message": "You can only view page1"
+# 	}
+# 	return render(request, "page1.html", context)
 
-@allowed_users(allowed_roles=["page2"])
-def page2(request):
-	context = {
-		"message": "You can only view page2"
-	}
-	return render(request, "page2.html", context)
-
-
+# @allowed_users(allowed_roles=["page2"])
+# def page2(request):
+# 	context = {
+# 		"message": "You can only view page2"
+# 	}
+# 	return render(request, "page2.html", context)
 
 
 
-@allowed_users(allowed_roles=["manager"])
-def manager_page(request):
-	context = {
-		"message": "I am manager"
-	}
-	return render(request, "manager.html", context)
 
 
-@allowed_users(allowed_roles=["admin"])
-def admin_page(request):
-	context = {
-		"message": "I am admin"
-	}
-	return render(request, "admin.html", context)
+# @allowed_users(allowed_roles=["manager"])
+# def manager_page(request):
+# 	context = {
+# 		"message": "I am manager"
+# 	}
+# 	return render(request, "manager.html", context)
+
+
+# @allowed_users(allowed_roles=["admin"])
+# def admin_page(request):
+# 	context = {
+# 		"message": "I am admin"
+# 	}
+# 	return render(request, "admin.html", context)
 
 @admin_only
 def add_new_group(request):

@@ -3,7 +3,27 @@ version: '3.8'
 services:
   web:
     build: ./
-    command: python manage.py runserver 0.0.0.0:8000
+    # command: python manage.py runserver 0.0.0.0:8000
+    # command: > 
+    #   sh -c "
+    #   python manage.py makemigrations
+    #   && python manage.py migrate --noinput
+    #   && python manage.py collectstatic --noinput 
+    #   && python manage.py shell -c 'from django.contrib.auth.models import User; User.objects.create_superuser("${ADMIN_USERNAME}", f"${ADMIN_EMAIL}", f"${ADMIN_PASSWORD}")'
+    #   && python manage.py shell < createadmin.py --noinput
+    #   && python manage.py runserver 0.0.0.0:8000
+    #   "
+    command:
+    - /bin/sh
+    - -c
+    - |
+       python manage.py makemigrations
+       python manage.py migrate --noinput
+       python manage.py collectstatic --noinput 
+       python manage.py shell -c "from django.contrib.auth.models import User; User.objects.create_superuser('${ADMIN_USERNAME}', '${ADMIN_EMAIL}', '${ADMIN_PASSWORD}')"
+       python manage.py shell < createadmin.py 
+       python manage.py runserver 0.0.0.0:8000
+
     volumes:
       - .:/usr/src/app/
     ports:
@@ -23,9 +43,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=Nasaandme2
-      - POSTGRES_DB=postgres
+      - POSTGRES_USER=${SQL_USER}
+      - POSTGRES_PASSWORD=${SQL_PASSWORD}
+      - POSTGRES_DB=${SQL_DATABASE}
 
 volumes:
   postgres_data:
