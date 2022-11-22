@@ -3,6 +3,7 @@ version: '3.8'
 services:
   web:
     build: ./
+    image: cbn/rabc
     # command: python manage.py runserver 0.0.0.0:8000
     # command: > 
     #   sh -c "
@@ -35,7 +36,7 @@ services:
     networks:
       - backend
   db:
-    image: postgres:latest
+    image: postgres:13
     expose: 
       - 5432
     networks:
