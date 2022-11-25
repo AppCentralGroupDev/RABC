@@ -1,0 +1,48 @@
+
+# Role Based Acces control for MLoperation
+
+An MLOps portal to consume the served api endpoints in form of dashboards, with user based access control to each models dashboard page.
+
+
+## Installation
+
+Install my-project with docker compose
+
+```bash
+docker-compose --env-file=default.env up -d --build
+```
+    
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your default.env file
+
+`DEBUG`
+`SECRET_KEY`
+`DJANGO_ALLOWED_HOSTS`
+
+
+
+`SQL_ENGINE`
+`SQL_DATABASE`
+`SQL_USER`
+`SQL_PASSWORD`
+`SQL_HOST`
+`SQL_PORT`
+
+`ADMIN_USERNAME` 
+`ADMIN_EMAIL` 
+`ADMIN_PASSWORD`
+
+
+## Documentation
+
+[Django](https://docs.djangoproject.com/en/4.1/)
+
+
+## Features
+
+- User management
+- Model Dashboard Creation
+- User accesses model Authorization
+
+
