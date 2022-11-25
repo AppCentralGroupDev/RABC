@@ -152,7 +152,7 @@ def add_model(request):
 		new_desc.save()
 		
 		messages.success(request, "model added successfully")
-		return redirect('home')
+		return redirect('/accounts/dashboard/')
 	return render(request, "add_group.html")
 
 #####################################
