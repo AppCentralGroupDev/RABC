@@ -144,7 +144,7 @@ def add_model(request):
 		new_desc = Description(
 			group=new_group,
 			current_stage=current_stage,
-			version=version,
+			version=version, 
 			model_author=model_author,
 			model_url=model_url,
 			description=desc,
