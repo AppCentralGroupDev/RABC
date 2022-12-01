@@ -4,14 +4,22 @@
 An MLOps portal to consume the served api endpoints in form of dashboards, with user based access control to each models dashboard page.
 
 
-## Installation
+## Installation Development
 
 Install my-project with docker compose
 
 ```bash
 docker-compose --env-file=default.env up -d --build
 ```
-    
+
+## Installation Production
+
+Install my-project with docker compose
+
+```bash
+docker-compose -f docker-compose.prod.yml --env-file=default.prod.env up -d --build
+```
+   
 ## Environment Variables
 
 To run this project, you will need to add the following environment variables to your default.env file

@@ -1,4 +1,5 @@
 {% load static %}
+{% load zcore_extras %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -10,7 +11,7 @@
       content="A project management Bootstrap theme by Medium Rare"
     />
     <link
-      href="{% static '/assets/img/favicon.ico' %}"
+      href="{% static '/assets/img/Myfavicon.ico' %}"
       rel="icon"
       type="image/x-icon"
     />
@@ -93,7 +94,7 @@
               >
                 <img
                   alt="Image-avatar"
-                  src="https://media-exp1.licdn.com/dms/image/C4D03AQHcL3QrLLZtPw/profile-displayphoto-shrink_400_400/0/1655721301449?e=1671062400&v=beta&t=uGJBwTvlhM5LH7QWgADA2Jex_OFJ9zgM1Lwwsj39JGY"
+                  src="{% static '/assets/img/user.png' %}"
                   class="avatar"
                 />
               </a>
@@ -102,7 +103,14 @@
                 <a href="#" class="dropdown-item"
                   >Account Settings</a
                 >
-                <a href="/accounts/logout" class="dropdown-item">Log Out</a>
+                {%if admin %}
+                <a class="dropdown-item" href="{{ "MLFLOW_SERVER_URL" |env}}" target="_blank">Model management</a>
+              {% comment %} <a class="dropdown-item" href="http://localhost:9000/">Monitor models</a> {% endcomment %}
+              <a class="dropdown-item" href="{{ "DOCS_SERVER_URL" |env}}" target="_blank">Developer</a>
+                {%else%}
+
+                {%endif%}
+                <a href="{% url 'logout' %}" class="dropdown-item">Log Out</a>
               </div>
             </div>
           </div>
@@ -215,14 +223,14 @@
                 
    
                 <li class="nav-item px-2">
-                  <a class="nav-link text-black" href="http://localhost:5001/" target="_blank">Model management</a>
+                  <a class="nav-link text-black" href="{{ "MLFLOW_SERVER_URL" |env}}" target="_blank">Model management</a>
                 </li>
                 {% comment %} <li class="nav-item px-2">
                   <a class="nav-link text-black" href="http://localhost:8000/" target="_blank">Monitor models</a>
                 </li> {% endcomment %}
   
                 <li class="nav-item px-2">
-                  <a class="nav-link text-black" href="http://localhost:8060/docs" target="_blank">Developer</a>
+                  <a class="nav-link text-black" href="{{ "DOCS_SERVER_URL" |env}}" target="_blank">Developer</a>
                 </li>
                 
                 <li class="nav-item px-2">
@@ -246,7 +254,7 @@
                 >
                   <img
                     alt="Image"
-                    src="https://media-exp1.licdn.com/dms/image/C4D03AQHcL3QrLLZtPw/profile-displayphoto-shrink_400_400/0/1655721301449?e=1671062400&v=beta&t=uGJBwTvlhM5LH7QWgADA2Jex_OFJ9zgM1Lwwsj39JGY"
+                    src="{% static '/assets/img/user.png' %}"
                     class="avatar"
                   />
                 </a>
@@ -255,7 +263,8 @@
                   <a href="#" class="dropdown-item"
                     >Account Settings</a
                   >
-                  <a href="/accounts/logout" class="dropdown-item">Log Out</a>
+                 
+                  <a href="{% url 'logout' %}" class="dropdown-item">Log Out</a>
                 </div>
               </div>
             </div>

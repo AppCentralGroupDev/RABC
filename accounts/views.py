@@ -112,11 +112,6 @@ def dashboard(request):
 	}
 	return render(request, "dashboard.html" , context)
 
-def adminregister(request):
-	return render(request, 'adminregister.html')
-
-def adminlogin(request):
-	return render(request, 'adminlogin.html')
 
 
 @login_required(login_url="login")
