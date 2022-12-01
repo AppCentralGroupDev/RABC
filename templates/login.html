@@ -49,12 +49,16 @@
                   src="{% static '/assets/img/logo.svg' %}"
                 />
               </div>
+              
               <h1 class="h3"></h1>
               <p class="py-3">
                 ALL RIGHTS RESERVED. Copyright in the pages, in the screens
                 displaying the pages, in the information and material therein
                 and in their arrangement is owned by Central Bank of Nigeria
               </p>
+
+              {%include 'alerts.html'%}
+
               <form class="" action="{% url 'login' %}" method="POST">
                 {% csrf_token %}
                 <div class="form-group">

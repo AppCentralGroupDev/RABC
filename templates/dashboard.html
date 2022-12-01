@@ -1,488 +1,162 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>CBN ML Pipeline Management</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A project management Bootstrap theme by Medium Rare"
-    />
-    <link
-      href="{% static '/assets/img/favicon.ico' %}"
-      rel="icon"
-      type="image/x-icon"
-    />
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Gothic+A1"
-      rel="stylesheet"
-    />
-    <link
-      href="{% static '/assets/css/theme.css' %}"
-      rel="stylesheet"
-      type="text/css"
-      media="all"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <style>
-      .custom-nav {
-        background-color: #ffffff !important;
-      }
 
-      .nav-link {
-        color: black !important;
-      }
+{% extends "__userbase.html" %}
 
-      .nav-link:hover {
-        color: #48b68e !important;
-      }
+{% block content %}
 
-      .custom-button {
-        background: #48b68e !important;
-        border: #48b68e !important;
-      }
+{%if groups.count == 0 %}
+ <div class="main-container fullscreen" style="height: 90vh">
+   <div class="container">
+     <div class="row justify-content-center">
+       <div class="col-xl-5 col-lg-6 col-md-7">
+         <div class="text-center">
+           <h1 class="display-4 text-primary">No models found</h1>
+           <p>
+             Sorry you haven't been assigned to any models yet. <span>Please contact your administrator to assign you to a model</span>
+             <br/>
+             email: <span class="text-info">anbabajo@cbn.gov.ng</span>
+           </p>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
+ {% else %}
 
-      .custom-button-text {
-        color: #48b68e !important;
-      }
-      .custom-color {
-      }
-      .custom-sub-card-header {
-        background-color: #f5f8fa;
-      }
-    </style>
-  </head>
+ <div class="main-container">
+   <div class="container">
+     <div class="row justify-content-start my-5">
 
-  <body>
-    <div class="layout layout-nav-top">
-      <div
-        class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top custom-nav shadow"
-      >
-        <a class="navbar-brand" href="/accounts/dashboard/">
-          <img
-            alt="Pipeline"
-            src="{% static '/assets/img/logo.svg' %}"
-          />
-        </a>
-        <div class="d-flex align-items-center">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbar-collapse"
-            aria-controls="navbar-collapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="d-block d-lg-none ml-2">
-            <div class="dropdown">
-              <a
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <img
-                  alt="Image-avatar"
-                  src="https://media-exp1.licdn.com/dms/image/C4D03AQHcL3QrLLZtPw/profile-displayphoto-shrink_400_400/0/1655721301449?e=1671062400&v=beta&t=uGJBwTvlhM5LH7QWgADA2Jex_OFJ9zgM1Lwwsj39JGY"
-                  class="avatar"
-                />
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a href="nav-side-user.html" class="dropdown-item">Profile</a>
-                <a href="utility-account-settings.html" class="dropdown-item"
-                  >Account Settings</a
-                >
-                <a href="/accounts/logout" class="dropdown-item">Log Out</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div
-          class="collapse navbar-collapse justify-content-between"
-          id="navbar-collapse"
-        >
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/dashboard/">Overview</a>
-            </li>
-
-            <!-- <li class="nav-item">
-
-              <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" id="nav-dropdown-2">Pages</a>
-                <div class="dropdown-menu">
-
-                  <a class="dropdown-item custom-button-text" href="pages-app.html">App Pages</a>
-
-                  <a class="dropdown-item custom-button-text" href="pages-utility.html">Utility Pages</a>
-
-                  <a class="dropdown-item custom-button-text" href="pages-layouts.html">Layouts</a>
-
-                </div>
-              </div>
-
-            </li> -->
-
-            <!-- <li class="nav-item">
-
-              <div class="dropdown">
-                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true" id="nav-dropdown-3">Model</a>
-                <div class="dropdown-menu">
-
-                  <a class="dropdown-item custom-button-text" href="components-bootstrap.html">Bootstrap</a>
-
-                  <a class="dropdown-item custom-button-text" href="components-pipeline.html">Pipeline</a>
-
-                </div>
-              </div>
-
-            </li> -->
-
-            {% comment %}
-            <li class="nav-item">
-              <a class="nav-link" href="">Model</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="">Users</a>
-            </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="">Group</a>
-            </li>
-            {% endcomment %}
-            
-          </ul>
-          <div class="d-lg-flex align-items-center">
-            <form class="form-inline my-lg-0 my-2">
-              <div class="input-group input-group-dark input-group-round">
-                <div class="input-group-prepend">
-                  <span class="input-group-text">
-                    <i class="material-icons">search</i>
-                  </span>
-                </div>
-                <input
-                  type="search"
-                  class="form-control form-control-dark"
-                  placeholder="Search"
-                  aria-label="Search app"
-                />
-              </div>
-            </form>
-            {% comment %}
-            <div class="dropdown mx-lg-2">
-              <button
-                class="btn btn-primary btn-block dropdown-toggle custom-button"
-                type="button"
-                id="newContentButton"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Add New
-              </button>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Team</a>
-                <a class="dropdown-item" href="#">Project</a>
-                <a class="dropdown-item" href="#">Task</a>
-              </div>
-            </div>
-            
-            {% endcomment %}
-              {%if admin %}
-              <ul class="navbar-nav">
-  
+       {%for group in groups%}
+       <div class="col-12 col-lg-6">
+         <div class="custom-card bg-white px-3 py-7 card mx-3 my-6">
+           <div
+             class="custom-card-header row py-2 align-items-center border border-3 border-left-0 border-right-0 border-top-0"
+           >
+             <div
+               class="custom-status-pill  
+               {%if group.description.current_stage == 'production' %}
+                 bg-success 
+               {%elif group.description.current_stage == 'staging' %}
+               bg-warning
+               {%else %}
+                 bg-info
+               {% endif %}
+               rounded-pill py-1 px-3"
+             >
+               <!-- icon -->
+               <i class="bi bi-check-circle text-white"></i>
+               <span class="custom-status-pill-text text-white 
               
-             
-  
-                <li class="nav-item px-2">
-                  <a class="nav-link" href="{% url 'home' %}">Users</a>
-                </li>
-  
-                <li class="nav-item px-2">
-                  <a class="nav-link" href="{% url 'add_new_group' %}"  >Add Model</a>
-                </li>
-                
-   
-                <li class="nav-item px-2">
-                  <a class="nav-link text-black" href="http://localhost:5001/" target="_blank">Model management</a>
-                </li>
-                {% comment %} <li class="nav-item px-2">
-                  <a class="nav-link text-black" href="http://localhost:8000/" target="_blank">Monitor models</a>
-                </li> {% endcomment %}
-  
-                <li class="nav-item px-2">
-                  <a class="nav-link text-black" href="http://localhost:8060/docs" target="_blank">Developer</a>
-                </li>
-                
-                <li class="nav-item px-2">
-                  <a class="nav-link" href="{% url 'logout' %}">Logout</a>
-                </li>
-                
-              
-  
-              </ul>
-              {%else%}
+               "
+                 >{{group.description.current_stage}}</span
+               >
+             </div>
+             <div class="custom-card-title mx-3 h4 my-0 font-weight-bold">
+               {{group.name}}
+             </div>
+           </div>
 
-              {%endif%}
-            <div class="d-none d-lg-block">
-              <div class="dropdown">
-                <a
-                  href="#"
-                  role="button"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <img
-                    alt="Image"
-                    src="https://media-exp1.licdn.com/dms/image/C4D03AQHcL3QrLLZtPw/profile-displayphoto-shrink_400_400/0/1655721301449?e=1671062400&v=beta&t=uGJBwTvlhM5LH7QWgADA2Jex_OFJ9zgM1Lwwsj39JGY"
-                    class="avatar"
-                  />
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-                  <a href="#" class="dropdown-item">Profile</a>
-                  <a href="#" class="dropdown-item"
-                    >Account Settings</a
-                  >
-                  <a href="/accounts/logout" class="dropdown-item">Log Out</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {%if groups.count == 0 %}
-      <div class="main-container fullscreen" style="height: 90vh">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-xl-5 col-lg-6 col-md-7">
-              <div class="text-center">
-                <h1 class="display-4 text-primary">No models found</h1>
-                <p>
-                  Sorry you haven't been assigned to any models yet. <span>Please contact your administrator to assign you to a model</span>
-                  <br/>
-                  email: <span class="text-info">anbabajo@cbn.gov.ng</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      {% else %}
+           <div class="custom-card-body py-3">
+             <!-- <div class="custom-card-image"></div> -->
+             <div class="custom-sub-card card pb-2 bg-white">
+               <div class="custom-sub-card-header px-2 py-2">
+                 <div class="custom-sub-card-header-tool row">
+                   <div class="sub-card-l col-6">
+                     <span class="text-dark font-weight-bold pr-1"
+                       >{{group.description.model_author}}</span
+                     >
+                     <span class="text-muted font-weight-bold time-since"
+                       >{{ group.description.last_updated |timesince }} ago</span
+                     >
+                   </div>
+                   <div class="sub-card-r col-6"></div>
+                 </div>
+               </div>
+               <div class="custom-sub-card-body px-2">
+                 <div
+                   class="custom-sub-card-body-header h6 my-1 py-1 text-dark font-weight-bolder border border-3 border-left-0 border-right-0 border-top-0"
+                 >
+                   Description
+                 </div>
+                 <div class="description" style="height: 130px">
+                   {{group.description}}
+                 </div>
 
-      <div class="main-container">
-        <div class="container">
-          <div class="row justify-content-start my-5">
+                 <div class="mt-2">
+                   <a href="/pages/{{group.name}}">
+                     <i class="bi bi-eye"></i>
+                     <span>view dashboard</span>
+                   </a>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div>
+       {% endfor %}
+       {% comment %} <div class="col-12 col-lg-6">
+         <div class="custom-card bg-white px-3 py-7 card mx-3 my-6">
+           <div
+             class="custom-card-header row py-2 align-items-center border border-3 border-left-0 border-right-0 border-top-0"
+           >
+             <div
+               class="custom-status-pill bg-success rounded-pill py-1 px-3 justify-content-center"
+             >
+               <!-- icon -->
+               <i class="bi bi-check-circle text-white"></i>
+               <span class="custom-status-pill-text text-white"
+                 >production</span
+               >
+             </div>
+             <div class="custom-card-title mx-3 h4 my-0 font-weight-bold">
+               E Naira Model
+             </div>
+           </div>
 
-            {%for group in groups%}
-            <div class="col-12 col-lg-6">
-              <div class="custom-card bg-white px-3 py-7 card mx-3 my-6">
-                <div
-                  class="custom-card-header row py-2 align-items-center border border-3 border-left-0 border-right-0 border-top-0"
-                >
-                  <div
-                    class="custom-status-pill  
-                    {%if group.description.current_stage == 'production' %}
-                      bg-success 
-                    {%elif group.description.current_stage == 'staging' %}
-                    bg-warning
-                    {%else %}
-                      bg-info
-                    {% endif %}
-                    rounded-pill py-1 px-3"
-                  >
-                    <!-- icon -->
-                    <i class="bi bi-check-circle text-white"></i>
-                    <span class="custom-status-pill-text text-white 
-                   
-                    "
-                      >{{group.description.current_stage}}</span
-                    >
-                  </div>
-                  <div class="custom-card-title mx-3 h4 my-0 font-weight-bold">
-                    {{group.name}}
-                  </div>
-                </div>
+           <div class="custom-card-body py-3">
+             <!-- <div class="custom-card-image"></div> -->
+             <div class="custom-sub-card card pb-2 bg-white">
+               <div class="custom-sub-card-header px-2 py-2">
+                 <div class="custom-sub-card-header-tool row">
+                   <div class="sub-card-l col-6">
+                     <span class="text-dark font-weight-bold pr-1"
+                       >Favour</span
+                     >
+                     <span class="text-muted font-weight-bold"
+                       >5 days ago</span
+                     >
+                   </div>
+                   <div class="sub-card-r col-6"></div>
+                 </div>
+               </div>
+               <div class="custom-sub-card-body px-2">
+                 <div
+                   class="custom-sub-card-body-header h6 my-1 py-1 text-dark font-weight-bolder border border-3 border-left-0 border-right-0 border-top-0"
+                 >
+                   Description
+                 </div>
+                 <div class="description" style="height: 130px">
+                   This is the E naira model
+                 </div>
+                 <div class="mt-2">
+                   <a href="#">
+                     <i class="bi bi-eye"></i>
+                     <span>view dashboard</span>
+                   </a>
+                 </div>
+               </div>
+             </div>
+           </div>
+         </div>
+       </div> {% endcomment %}
+       <!-- <div class="col-12 col-lg-6"> col-2</div> -->
+       <!-- <div class="col-12 col-lg-6"> col-2</div>
+         <div class="col-12 col-lg-6"> col-2</div>
+         <div class="col-12 col-lg-6"> col-2</div> -->
+     </div>
+   </div>
+ </div>
+ {% endif %}
 
-                <div class="custom-card-body py-3">
-                  <!-- <div class="custom-card-image"></div> -->
-                  <div class="custom-sub-card card pb-2 bg-white">
-                    <div class="custom-sub-card-header px-2 py-2">
-                      <div class="custom-sub-card-header-tool row">
-                        <div class="sub-card-l col-6">
-                          <span class="text-dark font-weight-bold pr-1"
-                            >{{group.description.model_author}}</span
-                          >
-                          <span class="text-muted font-weight-bold time-since"
-                            >{{ group.description.last_updated |timesince }} ago</span
-                          >
-                        </div>
-                        <div class="sub-card-r col-6"></div>
-                      </div>
-                    </div>
-                    <div class="custom-sub-card-body px-2">
-                      <div
-                        class="custom-sub-card-body-header h6 my-1 py-1 text-dark font-weight-bolder border border-3 border-left-0 border-right-0 border-top-0"
-                      >
-                        Description
-                      </div>
-                      <div class="description" style="height: 130px">
-                        {{group.description}}
-                      </div>
 
-                      <div class="mt-2">
-                        <a href="/pages/{{group.name}}">
-                          <i class="bi bi-eye"></i>
-                          <span>view dashboard</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-            {% comment %} <div class="col-12 col-lg-6">
-              <div class="custom-card bg-white px-3 py-7 card mx-3 my-6">
-                <div
-                  class="custom-card-header row py-2 align-items-center border border-3 border-left-0 border-right-0 border-top-0"
-                >
-                  <div
-                    class="custom-status-pill bg-success rounded-pill py-1 px-3 justify-content-center"
-                  >
-                    <!-- icon -->
-                    <i class="bi bi-check-circle text-white"></i>
-                    <span class="custom-status-pill-text text-white"
-                      >production</span
-                    >
-                  </div>
-                  <div class="custom-card-title mx-3 h4 my-0 font-weight-bold">
-                    E Naira Model
-                  </div>
-                </div>
-
-                <div class="custom-card-body py-3">
-                  <!-- <div class="custom-card-image"></div> -->
-                  <div class="custom-sub-card card pb-2 bg-white">
-                    <div class="custom-sub-card-header px-2 py-2">
-                      <div class="custom-sub-card-header-tool row">
-                        <div class="sub-card-l col-6">
-                          <span class="text-dark font-weight-bold pr-1"
-                            >Favour</span
-                          >
-                          <span class="text-muted font-weight-bold"
-                            >5 days ago</span
-                          >
-                        </div>
-                        <div class="sub-card-r col-6"></div>
-                      </div>
-                    </div>
-                    <div class="custom-sub-card-body px-2">
-                      <div
-                        class="custom-sub-card-body-header h6 my-1 py-1 text-dark font-weight-bolder border border-3 border-left-0 border-right-0 border-top-0"
-                      >
-                        Description
-                      </div>
-                      <div class="description" style="height: 130px">
-                        This is the E naira model
-                      </div>
-                      <div class="mt-2">
-                        <a href="#">
-                          <i class="bi bi-eye"></i>
-                          <span>view dashboard</span>
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> {% endcomment %}
-            <!-- <div class="col-12 col-lg-6"> col-2</div> -->
-            <!-- <div class="col-12 col-lg-6"> col-2</div>
-              <div class="col-12 col-lg-6"> col-2</div>
-              <div class="col-12 col-lg-6"> col-2</div> -->
-          </div>
-        </div>
-      </div>
-      {% endif %}
-      
-    </div>
-
-    <!-- Required vendor scripts (Do not remove) -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/jquery.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/popper.min.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/bootstrap.js' %}"
-    ></script>
-
-    <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
-
-    <!-- Autosize - resizes textarea inputs as user types -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/autosize.min.js' %}"
-    ></script>
-    <!-- Flatpickr (calendar/date/time picker UI) -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/flatpickr.min.js' %}"
-    ></script>
-    <!-- Prism - displays formatted code boxes -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/prism.js' %}"
-    ></script>
-    <!-- Shopify Draggable - drag, drop and sort items on page -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/draggable.bundle.legacy.js' %}"
-    ></script>
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/swap-animation.js' %}"
-    ></script>
-    <!-- Dropzone - drag and drop files onto the page for uploading -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/dropzone.min.js' %}"
-    ></script>
-    <!-- List.js - filter list elements -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/list.min.js' %}"
-    ></script>
-
-    <!-- Required theme scripts (Do not remove) -->
-    <script
-      type="text/javascript"
-      src="{% static '/assets/js/theme.js' %}"
-    ></script>
-    <script>
-      Array.from(document.getElementsByClassName("time-since")).forEach(ele => {
-        let timesince = ele.innerHTML.split(",");
-        ele.innerHTML = timesince[0];
-      });
-      
-  </script>
-  </body>
-</html>
+ {% endblock %}

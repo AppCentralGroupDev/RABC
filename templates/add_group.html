@@ -1,274 +1,103 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <title>CBN ML Pipeline Management </title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="A project management Bootstrap theme by Medium Rare"
-    />
-    {% comment %}
-    <link
-      href=""{% static '/assets/img/favicon.ico' %}"
-      rel="icon"
-      type="image/x-icon"
-    />
-    {% endcomment %}
-    <link
-      href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Gothic+A1"
-      rel="stylesheet"
-    />
-    <link
-      href="{% static '/assets/css/theme.css' %}"
-      rel="stylesheet"
-      type="text/css"
-      media="all"
-    />
-    {% comment %} {% include 'style.html' %} {% endcomment %}
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css"
-    />
-    <style>
-      .custom-nav {
-        background-color: #ffffff !important;
-      }
+{% extends "__adminbase.html" %}
 
-      .nav-link {
-        color: black !important;
-      }
+{% block content %}
 
-      .nav-link:hover {
-        color: #48b68e !important;
-      }
+<main class="container">
+  <div class="row">
+    <div class="col-12">
+      {% comment %} {% include "alerts.html" %} {% endcomment %}
+      <div class="mt-4">
+        <h1> Add a new Model</h1>
+      </div>
 
-      .custom-button {
-        background: #48b68e !important;
-        border: #48b68e !important;
-      }
-
-      .custom-button-text {
-        color: #48b68e !important;
-      }
-      .custom-color {
-      }
-      .custom-sub-card-header {
-        background-color: #f5f8fa;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="layout layout-nav-top">
-      <div
-        class="navbar navbar-expand-lg bg-dark navbar-dark sticky-top custom-nav shadow"
-      >
-        <a class="navbar-brand" href="/accounts/dashboard/">
-          <img
-            alt="Pipeline"
-            src="{% static '/assets/img/logo.svg' %}"
-          />
-        </a>
-        <div class="d-flex align-items-center">
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbar-collapse"
-            aria-controls="navbar-collapse"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
+      <form class="" action="{% url 'add_model' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          {% comment %} Group name {% endcomment %}
+          <label for="name" class="form-label mt-4"
+            >Name</label
           >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="d-block d-lg-none ml-2">
-            <div class="dropdown">
-              <a
-                href="#"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                <i class=" text-success h4 bi bi-list"></i>
-              </a>
-              <div class="dropdown-menu dropdown-menu-right">
-                <a class="dropdown-item text-success" href="{% url 'logout' %}">logout</a>
-                <a class="dropdown-item text-success" href="{% url 'home' %}"  >Users</a>
-                <a class="dropdown-item text-success" href="{% url 'add_new_group' %}"  >Add Model</a>
-                <a class="dropdown-item text-success" href="http://localhost:5001/"  target="_blank">Model management</a>
-                <a class="dropdown-item text-success" href="http://localhost:9000/"  target="_blank">Monitor models</a>
-                <a class="dropdown-item text-success" href="http://localhost:8060/docs"  target="_blank">Developer</a>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="collapse navbar-collapse justify-content-between" id="navbar-collapse">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <a class="nav-link" href="/accounts/dashboard/">Administrator</a>
-            </li>
-
-          
-
-          </ul>
-          <div class="d-lg-flex align-items-center">
-            <ul class="navbar-nav">
-  
-              
-             
-  
-              <li class="nav-item px-2">
-                <a class="nav-link" href="{% url 'home' %}">Users</a>
-              </li>
- 
-              <li class="nav-item px-2">
-                <a class="nav-link text-black" href="http://localhost:5001/" target="_blank">Model management</a>
-              </li>
-              {% comment %} <li class="nav-item px-2">
-                <a class="nav-link text-black" href="http://localhost:8000/" target="_blank">Monitor models</a>
-              </li> {% endcomment %}
-
-              <li class="nav-item px-2">
-                <a class="nav-link text-black" href="http://localhost:8060/docs" target="_blank">Developer</a>
-              </li>
-
-              <li class="nav-item px-2">
-                <a class="nav-link text-black" href="{% url 'logout' %}">logout</a>
-              </li>
-
-            </ul>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            aria-describedby="emailHelp"
+            placeholder="name"
+            name="name"
+          />
+           {% comment %} Current Stage{% endcomment %}
+           <label for="current_stage" class="form-label mt-4"
+           >Current Stage</label
+         >
+         <select class="form-control" id="current_stage" name="current_stage">
+          <option selected>Choose...</option>
+          <option value="production">Production</option>
+          <option value="staging">Staging</option>
+          <option value="development">Development</option>
+        </select>
+          {% comment %} Version {% endcomment %}
+          <label for="version" class="form-label mt-4"
+            >Version</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="version"
+            aria-describedby="emailHelp"
+            placeholder="version"
+            name="version"
             
-            
-          </div>
+          />
+           {% comment %} Description {% endcomment %}
+           <label for="name" class="form-label mt-4"
+           >Description</label
+         >
+        
+         <textarea class="form-control"
+         id="description"
+         aria-describedby="emailHelp"
+         placeholder="description"
+         name="description" rows="3"></textarea>
+          {% comment %} Status {% endcomment %}
+          {% comment %} <label for="name" class="form-label mt-4"
+            >Status</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="status"
+            aria-describedby="emailHelp"
+            placeholder="status"
+            name="status"
+          /> {% endcomment %}
+          <label for="model_author" class="form-label mt-4"
+          >Model author</label
+        >
+        <input
+          type="text"
+          class="form-control"
+          id="model_author"
+          aria-describedby="emailHelp"
+          placeholder="model author"
+          name="model_author"
+        />
+
+        <label for="model_url" class="form-label mt-4"
+            >Model url</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            id="model_url"
+            aria-describedby="emailHelp"
+            placeholder="model url"
+            name="model_url"
+          />
         </div>
-      </div>
+        <button type="submit" class="btn btn-primary btn-lg">add Model</button>
+      </form>
+    </div>
+  </div>
+</main>
 
-    <main class="container">
-      <div class="row">
-        <div class="col-12">
-          {% comment %} {% include "alerts.html" %} {% endcomment %}
-          <div class="mt-4">
-            <h1> Add a new Model</h1>
-          </div>
-
-          <form class="" action="{% url 'add_model' %}" method="POST">
-            {% csrf_token %}
-            <div class="form-group">
-              {% comment %} Group name {% endcomment %}
-              <label for="name" class="form-label mt-4"
-                >Name</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="name"
-                aria-describedby="emailHelp"
-                placeholder="name"
-                name="name"
-              />
-               {% comment %} Current Stage{% endcomment %}
-               <label for="current_stage" class="form-label mt-4"
-               >Current Stage</label
-             >
-             <select class="form-control" id="current_stage" name="current_stage">
-              <option selected>Choose...</option>
-              <option value="production">Production</option>
-              <option value="staging">Staging</option>
-              <option value="development">Development</option>
-            </select>
-              {% comment %} Version {% endcomment %}
-              <label for="version" class="form-label mt-4"
-                >Version</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="version"
-                aria-describedby="emailHelp"
-                placeholder="version"
-                name="version"
-                
-              />
-               {% comment %} Description {% endcomment %}
-               <label for="name" class="form-label mt-4"
-               >Description</label
-             >
-            
-             <textarea class="form-control"
-             id="description"
-             aria-describedby="emailHelp"
-             placeholder="description"
-             name="description" rows="3"></textarea>
-              {% comment %} Status {% endcomment %}
-              {% comment %} <label for="name" class="form-label mt-4"
-                >Status</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="status"
-                aria-describedby="emailHelp"
-                placeholder="status"
-                name="status"
-              /> {% endcomment %}
-              <label for="model_author" class="form-label mt-4"
-              >Model author</label
-            >
-            <input
-              type="text"
-              class="form-control"
-              id="model_author"
-              aria-describedby="emailHelp"
-              placeholder="model author"
-              name="model_author"
-            />
-
-            <label for="model_url" class="form-label mt-4"
-                >Model url</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                id="model_url"
-                aria-describedby="emailHelp"
-                placeholder="model url"
-                name="model_url"
-              />
-            </div>
-            <button type="submit" class="btn btn-primary btn-lg">add Model</button>
-          </form>
-        </div>
-      </div>
-    </main>
-     <!-- Required vendor scripts (Do not remove) -->
-     <script type="text/javascript" src="{% static '/assets/js/jquery.min.js' %}"></script>
-     <script type="text/javascript" src="{% static '/assets/js/popper.min.js' %}"></script>
-     <script type="text/javascript" src="{% static '/assets/js/bootstrap.js' %}"></script>
- 
-     <!-- Optional Vendor Scripts (Remove the plugin script here and comment initializer script out of index.js if site does not use that feature) -->
- 
-     <!-- Autosize - resizes textarea inputs as user types -->
-     <script type="text/javascript" src="{% static '/assets/js/autosize.min.js' %}"></script>
-     <!-- Flatpickr (calendar/date/time picker UI) -->
-     <script type="text/javascript" src="{% static '/assets/js/flatpickr.min.js' %}"></script>
-     <!-- Prism - displays formatted code boxes -->
-     <script type="text/javascript" src="{% static '/assets/js/prism.js' %}"></script>
-     <!-- Shopify Draggable - drag, drop and sort items on page -->
-     <script type="text/javascript" src="{% static '/assets/js/draggable.bundle.legacy.js' %}"></script>
-     <script type="text/javascript" src="{% static '/assets/js/swap-animation.js' %}"></script>
-     <!-- Dropzone - drag and drop files onto the page for uploading -->
-     <script type="text/javascript" src="{% static '/assets/js/dropzone.min.js' %}"></script>
-     <!-- List.js - filter list elements -->
-     <script type="text/javascript" src="{% static '/assets/js/list.min.js' %}"></script>
- 
-     <!-- Required theme scripts (Do not remove) -->
-     <script type="text/javascript" src="{% static '/assets/js/theme.js' %}"></script>
-  </body>
-</html>
+{% endblock %}

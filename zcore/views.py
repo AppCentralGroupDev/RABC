@@ -6,7 +6,10 @@ from .decorators import admin_only, allowed_users, unauthenticated_user
 from django.views.decorators.http import require_http_methods
 from django.contrib.auth.models import Group
 from zcore.models import Description
+from django.core.exceptions import *
+from django.db import IntegrityError
 
+# Home page for the admin , Gives a list of all available users on the platform
 @login_required(login_url="login")
 @allowed_users(allowed_roles=["admin"])
 def home(request):
@@ -26,6 +29,7 @@ def customer_page(request):
 	return render(request, "customer_page.html", context)
 
 
+#Gives accesse to the user for the models they have
 login_required(login_url="login")
 def pages(request , page_name):
     current_user = request.user 
@@ -111,6 +115,7 @@ def pages(request , page_name):
 # 	}
 # 	return render(request, "admin.html", context)
 
+# Add a new
 @admin_only
 def add_new_group(request):
 	if request.method == "POST":
@@ -122,42 +127,44 @@ def add_new_group(request):
 
 ###################################
 
+#add a model group
 @admin_only
 def add_model(request):
 	if request.method == "POST":
 		name = request.POST.get('name')
 		try:
-			print('hello')
-		except Exception as e :
+			current_stage = request.POST.get('current_stage')
+			version = request.POST.get('version')
+			model_author = request.POST.get('model_author')
+			model_url = request.POST.get('model_url')
+			# status = request.POST.get("status")
+			# last_updated = 
+			
+			desc = request.POST.get("description")
+			new_group = Group.objects.create(name=name)
+			new_group.save()
+			new_desc = Description(
+				group=new_group,
+				current_stage=current_stage,
+				version=version, 
+				model_author=model_author,
+				model_url=model_url,
+				description=desc,
+			)
+			new_desc.save()
+			
+			messages.success(request, "model added successfully")
+			return redirect('/accounts/dashboard')
+		except IntegrityError:
+			messages.error(request, 'Model already Exists')
 			pass
 			
-		current_stage = request.POST.get('current_stage')
-		version = request.POST.get('version')
-		model_author = request.POST.get('model_author')
-		model_url = request.POST.get('model_url')
-		# status = request.POST.get("status")
-		# last_updated = 
-  		
-		desc = request.POST.get("description")
-		new_group = Group.objects.create(name=name)
-		new_group.save()
-		new_desc = Description(
-			group=new_group,
-			current_stage=current_stage,
-			version=version, 
-			model_author=model_author,
-			model_url=model_url,
-			description=desc,
-		)
-		new_desc.save()
 		
-		messages.success(request, "model added successfully")
-		return redirect('/accounts/dashboard/')
 	return render(request, "add_group.html")
 
 #####################################
 
-
+#assign a user to group and admin
 @admin_only
 def assign_user(request,user_id):
 	if request.method == "POST":
@@ -183,6 +190,7 @@ def add_user_group(request,group_name,user_id):
 		my_group.user_set.add(user)
 	return redirect('assign_user', user_id=user_id)
 
+# Remove a user from a group and a model 
 @admin_only 
 def remove_user_group(request,group_name,user_id):
 	if request.method == "GET":
@@ -192,6 +200,7 @@ def remove_user_group(request,group_name,user_id):
 	return redirect('assign_user', user_id=user_id)
 
 
+# Approve a user account
 @admin_only
 @require_http_methods(['GET'])
 def approve_user_account(request, user_id):

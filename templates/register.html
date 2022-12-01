@@ -9,7 +9,7 @@
       name="description"
       content="A project management Bootstrap theme by Medium Rare"
     />
-    <link href=""{% static '/assets/img/favicon.ico' %}" rel="icon" type="image/x-icon" />
+    <link href="{% static '/assets/img/favicon.ico' %}" rel="icon" type="image/x-icon" />
     <link
       href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet"
@@ -36,6 +36,7 @@
               <div class="mb-3">
                 <img alt="logo" src="{% static '/assets/img/logo.svg' %}" />
               </div>
+              
               <h1 class="h2">Create account</h1>
               <p class="lead py-3">
                 A platform to manage infrastructure, tools, and workflows. You
@@ -46,6 +47,10 @@
                 <img alt="Google" src="{% static '/assets/img/logo-google.svg' %}" class="rounded align-top mr-2" />Continue with Google
               </button> -->
               <!-- <hr> -->
+              
+
+              {%include 'alerts.html'%}
+
               <form class="" method="post" action="{% url 'register' %}">
                 {% csrf_token %}
                 <div class="form-group">

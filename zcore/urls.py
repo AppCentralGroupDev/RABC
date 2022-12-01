@@ -21,15 +21,15 @@ from django.conf.urls.static import static
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
     path('', views.home, name="home"),
-    path('add-new-group/', views.add_new_group, name="add_new_group"),
+    path('add-new-group', views.add_new_group, name="add_new_group"),
     path("assign_user/<int:user_id>", views.assign_user, name="assign_user"),
     path("add_user_group/<str:group_name>/<int:user_id>", views.add_user_group, name="add_user_group"),
     path("remove_user_group/<str:group_name>/<int:user_id>", views.remove_user_group, name="remove_user_group"),
-    path('add-model/', views.add_model, name="add_model"),
-    path('approve-user-account/<int:user_id>/', views.approve_user_account, name="approve_user_account"),
-    path('customer/', views.customer_page, name="customer"),
+    path('add-model', views.add_model, name="add_model"),
+    path('approve-user-account/<int:user_id>', views.approve_user_account, name="approve_user_account"),
+    path('customer', views.customer_page, name="customer"),
     # path('page1/', views.page1, name="page1"),
     # path('page2/', views.page2, name="page2"),
     path('pages/<str:page_name>', views.pages, name="pages"),

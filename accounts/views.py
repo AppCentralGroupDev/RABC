@@ -6,6 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import Group
 from zcore.decorators import unauthenticated_user
 
+# Register a user to the platform
 @unauthenticated_user
 def register(request):
 	if request.method == "POST":
@@ -30,13 +31,13 @@ def register(request):
 					# group = Group.objects.get(name="default")
 					# user.groups.add(group)
 					user.save()
-					messages.success(request, "Successfully registered! wait for an admin to approve your account")
+					messages.success(request, "Successfully registered! wait for an admin to approve your account or please send an email to anbabajo@cbn.gov.ng")
 					user.save()
 					return redirect('login')
 		messages.error(request, "something went wrong")
 
 		if User.objects.filter(username=username).exists():
-			messages.error(request, 'Email already taken')
+			messages.error(request, 'Username already taken')
 			return render(request, 'register.html', status=409)
 		
 		elif password != password2:
@@ -58,13 +59,25 @@ def register(request):
 	}
 	return render(request, 'register.html', context)
 
+# Login a user to the platform
 @unauthenticated_user
 def login_view(request):
 	if request.method == "POST":
 		username = request.POST['username'].lower()
 		password = request.POST['password']
 		user = authenticate(username=username, password=password)
-		if user is not None and user.is_active:
+
+		try: 
+			_user = User.objects.get(username=username)
+
+			if not _user.is_active and _user: 
+				messages.error(request, 'Account not activated , please wait for an admin to approve your account or send an email to anbabajo@cbn.gov.ng')
+				return redirect('login')
+		except Exception as e: 
+			pass
+
+		
+		if user is not None:
 			login(request, user)
 			messages.success(request, 'Successfully logged in')
 			# if user.is_superuser:
@@ -75,10 +88,11 @@ def login_view(request):
 			messages.error(request, 'Invalid credentials')
 			return redirect('login')
 	context = {
-	
+		
 	}
 	return render(request, 'login.html', context)
 
+@login_required(login_url="login")
 def dashboard(request):
 	current_user = request.user
 	# print(current_user)
